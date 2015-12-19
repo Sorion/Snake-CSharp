@@ -11,11 +11,18 @@ namespace Snake_CSharp
     {
         Thread soundPlayer;
 
-        public void startThread()
+        public void startThread(int choice)
         {
-            soundPlayer = new Thread(new ThreadStart(ThreadLoop));
-
-            soundPlayer.Start();
+            if (choice == 1)
+            {
+                soundPlayer = new Thread(new ThreadStart(ThreadLoopMusic));
+                soundPlayer.Start();
+            }
+            else
+            {
+                soundPlayer = new Thread(new ThreadStart(ThreadLoopBeep));
+                soundPlayer.Start();
+            }
         }
 
         public void stopThread()
@@ -23,7 +30,7 @@ namespace Snake_CSharp
             soundPlayer.Abort();
         }
 
-        private void ThreadLoop()
+        private void ThreadLoopMusic()
         {
             Beep music = new Beep();
 
@@ -34,5 +41,17 @@ namespace Snake_CSharp
                 music.playMenuSound();
             }
         }
+        private void ThreadLoopBeep()
+        {
+            Beep music = new Beep();
+            int i = 1;
+            while (Thread.CurrentThread.IsAlive)
+            {
+               
+                music.playBeep(290 + i);
+                i += 45;
+            }
+        }
+       
     }
 }

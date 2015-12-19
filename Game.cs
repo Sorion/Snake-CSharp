@@ -8,6 +8,26 @@ namespace Snake_CSharp
 {
     class Game
     {
+        List<string> snake;
+        private int cursorXpos,
+          cursorYpos,
+          endPos,
+          zoneX,
+          zoneY;
+
+
+        public Game()
+        {
+            snake = new List<string> { "*", "*", "*" };
+             cursorXpos = 3;
+             cursorYpos = 3;
+             endPos = 0;
+             zoneX = Console.WindowWidth - 6;
+             zoneY = Console.WindowHeight - 6;
+
+
+        }
+
         private void displayGame(int score)
         {
             Console.Clear();
@@ -20,9 +40,7 @@ namespace Snake_CSharp
 
         private void setGameZone()
         {
-            int cursorXpos = 3;
-            int cursorYpos = 3;
-            int endPos = 0;
+ 
 
             for (int i = cursorYpos; i < Console.WindowHeight - 3; i ++)
             {
@@ -47,8 +65,28 @@ namespace Snake_CSharp
 
         public void newGame ()
         {
+            Console.CursorVisible = false;
             displayGame(0);
+            placeSnake();
             Console.Read();
+        }
+
+        private void placeSnake()
+        {
+            Console.SetCursorPosition(zoneX / 2, zoneY / 2);
+
+            foreach (string str in snake)
+            {
+                System.Threading.Thread.Sleep(500);
+                Console.Write(str);
+            }
+            
+            Console.SetCursorPosition(0, Console.WindowHeight-1);
+        }
+
+        private void engine()
+        {
+
         }
     }
 }
