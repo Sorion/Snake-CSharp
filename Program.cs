@@ -13,12 +13,23 @@ namespace Snake_CSharp
             
             Menu menu = new Menu();
             SoundThread sound = new SoundThread();
+            int width, height, choice;
 
-            sound.startThread();
+            width = Console.WindowWidth;
+            height = Console.WindowHeight;
 
-            menu.startMenu();
+         //   Console.SetWindowSize(width* 2, height * 2);
 
-            sound.stopThread();
+           choice = menu.startMenu();
+
+            if(choice == 2)
+            {
+                Game snake = new Game();
+
+                snake.newGame();
+            }
+
+            
         }
     }
 }
