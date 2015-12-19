@@ -105,10 +105,10 @@ namespace Snake_CSharp
                 displayMenu(key);
         }
 
-        public void startMenu()
+        public int startMenu()
         {
             bool correctKey = false;
-            int keyFlag;
+            int keyFlag = 2;
             Beep sound = new Beep();
 
             displayMenu(1);
@@ -133,6 +133,7 @@ namespace Snake_CSharp
                 else if (readKey.Key == ConsoleKey.Enter)
                     correctKey = true;
             }
+            return keyFlag;
         }
     }
 }
