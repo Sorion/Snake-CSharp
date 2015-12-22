@@ -42,7 +42,7 @@ namespace Snake_CSharp
 
         private void setGameZone()
         {
- 
+            Console.SetCursorPosition(cursorXpos, cursorYpos);
 
             for (int i = cursorYpos; i < Console.WindowHeight - 3; i ++)
             {
@@ -70,10 +70,24 @@ namespace Snake_CSharp
             Engine engine = new Engine(500, zoneX, zoneY);
             Console.CursorVisible = false;
             displayGame(0);
-            engine.DisplaySnake();
+           // engine.DisplaySnake();
+            System.Threading.Thread.Sleep(500);
+            updateGame(engine);
             Console.Read();
         }
 
+        public void updateGame(Engine engine)
+        {
+            int speed = 500;
+            while (true)
+            {       
+                System.Threading.Thread.Sleep(speed);
+                engine.ClearSnake();
+                //displayGame(0);
+                engine.UpdatePos(1);
+                engine.DisplaySnake();
+            }
+        }
 
 
         public class Engine
@@ -97,6 +111,7 @@ namespace Snake_CSharp
                 initSnake(3);
             }
 
+
             protected void initSnake(byte nbElement)
             {
                 snake = new Snake<IndexedChar>();
@@ -115,8 +130,6 @@ namespace Snake_CSharp
 
             public void DisplaySnake()
             {
-                
-
                     ElemS<IndexedChar> last = snake.First;
                 
                     while(last != snake.Last)
@@ -129,6 +142,68 @@ namespace Snake_CSharp
                 Console.Write(snake.Last.Value.Char);
             }
 
+            public static void ClearCurrentConsoleLine()
+            {
+                int currentLineCursor = Console.CursorTop;
+                Console.SetCursorPosition(4, Console.CursorTop);
+                Console.Write(new string(' ', Console.WindowWidth-8));
+                Console.SetCursorPosition(0, currentLineCursor);
+            }
+
+            public void ClearSnake()
+            {
+                ElemS<IndexedChar> last = snake.First;
+
+                while (last != snake.Last)
+                {
+                    Console.SetCursorPosition(last.Value.x, last.Value.y);
+                    ClearCurrentConsoleLine();
+                    last = last.Next;
+                }
+                Console.SetCursorPosition(snake.Last.Value.x, snake.Last.Value.y);
+                ClearCurrentConsoleLine();
+            }
+
+
+            public void UpdatePos(byte direction)
+            {
+                IndexedChar temp = new IndexedChar();
+
+                ElemS<IndexedChar> last = snake.Last;
+
+                while(last != snake.First)
+                {
+                    temp = last.Value;
+                    temp = last.Previous.Value;
+                    last.Value = temp;
+                    last = last.Previous;
+                }
+
+                if(direction == UP)
+                {
+                    temp = snake.First.Value;
+                    temp.y -= 1;
+                    snake.First.Value = temp;
+                }
+                else if(direction == DOWN)
+                {
+                    temp = snake.First.Value;
+                    temp.y += 1;
+                    snake.First.Value = temp;
+                }
+                else if(direction == LEFT)
+                {
+                    temp = snake.First.Value;
+                    temp.x -= 1;
+                    snake.First.Value = temp;
+                }
+                else if(direction == RIGHT)
+                {
+                    temp = snake.First.Value;
+                    temp.x += 1;
+                    snake.First.Value = temp;
+                }
+            }
         }
     }
 }
