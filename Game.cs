@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace Snake_CSharp
 {
+    
     class Game
     {
         List<string> snake;
-        private int cursorXpos,
+        protected int cursorXpos,
           cursorYpos,
           endPos,
           zoneX,
@@ -19,11 +20,12 @@ namespace Snake_CSharp
         public Game()
         {
             snake = new List<string> { "*", "*", "*" };
-             cursorXpos = 3;
-             cursorYpos = 3;
-             endPos = 0;
-             zoneX = Console.WindowWidth - 6;
-             zoneY = Console.WindowHeight - 6;
+            cursorXpos = 3;
+            cursorYpos = 3;
+            zoneX = Console.WindowWidth;
+            zoneY = Console.WindowHeight;
+            endPos = 0;
+
 
 
         }
@@ -65,27 +67,67 @@ namespace Snake_CSharp
 
         public void newGame ()
         {
+            Engine engine = new Engine(500, zoneX, zoneY);
             Console.CursorVisible = false;
             displayGame(0);
-            placeSnake();
+            engine.DisplaySnake();
             Console.Read();
         }
 
-        private void placeSnake()
-        {
-            Console.SetCursorPosition(zoneX / 2, zoneY / 2);
 
-            foreach (string str in snake)
+
+        public class Engine
+        {
+            private static byte UP = 1,
+                             DOWN = 2,
+                             LEFT = 3,
+                             RIGHT = 4;
+
+            protected int zoneX, zoneY;
+            private Snake<IndexedChar> snake;
+            private byte direction;
+            private ushort speed;
+
+            public Engine(ushort speed, int x, int y)
             {
-                System.Threading.Thread.Sleep(500);
-                Console.Write(str);
+                direction = RIGHT;
+                this.speed = speed;
+                zoneX = x;
+                zoneY = y;
+                initSnake(3);
             }
-            
-            Console.SetCursorPosition(0, Console.WindowHeight-1);
-        }
 
-        private void engine()
-        {
+            protected void initSnake(byte nbElement)
+            {
+                snake = new Snake<IndexedChar>();
+
+                for (byte i = 0; i < nbElement; i++)
+                {
+                    IndexedChar snakeElem = new IndexedChar();
+                    snakeElem.Char = "*";
+                    snakeElem.Direction = direction;
+                    
+                    snakeElem.x = zoneX / 2 + (int)i;
+                    snakeElem.y = zoneY / 2;
+                    snake.Add(snakeElem);
+                }
+            }
+
+            public void DisplaySnake()
+            {
+                
+
+                    ElemS<IndexedChar> last = snake.First;
+                
+                    while(last != snake.Last)
+                    {
+                        Console.SetCursorPosition(last.Value.x, last.Value.y);
+                        Console.Write(last.Value.Char);
+                        last = last.Next;
+                    }
+                Console.SetCursorPosition(snake.Last.Value.x, snake.Last.Value.y);
+                Console.Write(snake.Last.Value.Char);
+            }
 
         }
     }
