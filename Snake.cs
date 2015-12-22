@@ -11,14 +11,13 @@ namespace Snake_CSharp
         public String Char { get; set; }
         public int x { get; set; }
         public int y { get; set; }
-        public bool pivotPoint { get; set; }
+        
         public int Direction { get; set; }
     }
 
     class Snake<S>
     {
         public ElemS<S> First { get; private set; }
-        
         public ElemS<S> Last
         {
             get
@@ -81,7 +80,9 @@ namespace Snake_CSharp
                     temp.Previous = previous.Next;
                 }
             }
-        } 
+        }
+        
+         
     }
     class ElemS<S>
     {
