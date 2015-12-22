@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Globalization;
+using System.Reflection;
+using System.Resources;
 
 namespace Snake_CSharp
 {
@@ -11,6 +14,7 @@ namespace Snake_CSharp
         String[] logo;
         String[] name;
         int nameLenght, logoLenght;
+        ResourceManager rm = new ResourceManager("Snake_CSharp.Lang", typeof(Menu).Assembly);
 
         public Menu()
         {
@@ -59,7 +63,7 @@ namespace Snake_CSharp
 
 
             Console.SetCursorPosition(0, 0);
-            TextCenter("-- MENU --");
+            TextCenter(rm.GetString("menu"));
             Console.SetCursorPosition(0, 4);
 
             foreach(String line in logo)
@@ -83,15 +87,15 @@ namespace Snake_CSharp
             {
                 Console.BackgroundColor = ConsoleColor.White;
                 Console.ForegroundColor = ConsoleColor.Black;
-                TextCenter(" NEW GAME ");
-                TextCenter(" EXIT ");
+                TextCenter(rm.GetString("newGame"));
+                TextCenter(rm.GetString("exit"));
             }
             else
             {
-                TextCenter(" NEW GAME ");
+                TextCenter(rm.GetString("newGame"));
                 Console.BackgroundColor = ConsoleColor.White;
                 Console.ForegroundColor = ConsoleColor.Black;
-                TextCenter(" EXIT ");
+                TextCenter(rm.GetString("exit"));
 
             }            
         }
