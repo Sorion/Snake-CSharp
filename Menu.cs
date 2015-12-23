@@ -58,8 +58,7 @@ namespace Snake_CSharp
 
         public void displayMenu(int col)
         {
-
-
+            Console.Clear();
             Console.SetCursorPosition(0, 0);
             TextCenter(rm.GetString("menu"));
             Console.SetCursorPosition(0, 4);
@@ -110,7 +109,7 @@ namespace Snake_CSharp
         public int startMenu()
         {
             bool correctKey = false;
-            int keyFlag = 2;
+            int keyFlag = 1;
             Beep sound = new Beep();
 
             displayMenu(1);
@@ -118,18 +117,20 @@ namespace Snake_CSharp
             {
                 ConsoleKeyInfo readKey = Console.ReadKey(true);
 
-                if (readKey.Key == ConsoleKey.DownArrow)
-                {
-                    updateMenu(2);
-                    sound.playBeep(440);
-                    keyFlag = 1;
-                }
-                else if (readKey.Key == ConsoleKey.UpArrow)
+                if (readKey.Key == ConsoleKey.UpArrow)
                 {
                     updateMenu(1);
                     sound.playBeep(440);
+                    keyFlag = 1;
+                }
+
+                else if (readKey.Key == ConsoleKey.DownArrow)
+                {
+                    updateMenu(2);
+                    sound.playBeep(440);
                     keyFlag = 2;
                 }
+
                 else if (readKey.Key == ConsoleKey.Escape)
                     correctKey = true;
                 else if (readKey.Key == ConsoleKey.Enter)
