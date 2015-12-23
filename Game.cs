@@ -82,7 +82,7 @@ namespace Snake_CSharp
         {
             zoneX = x;
             zoneY = y;
-            initSnake(3);
+            initSnake(6);
         }
 
 
@@ -179,7 +179,7 @@ namespace Snake_CSharp
         public void updateGame()
         {
             bool loop = true;
-            EngineThread keyT = new EngineThread(4);
+            EngineThread keyT = new EngineThread(3);
             direction = keyT.key;
             keyT.Start();
             while (loop)
@@ -190,12 +190,34 @@ namespace Snake_CSharp
                 else
                 {
                     direction = keyT.key;
+
                     ClearSnake();
                     UpdatePos();
+                    if (CheckCollision() == true)
+                        loop = false;
                     DisplaySnake();
                 }
             }
             keyT.Abort();
+        }
+
+        private bool CheckCollision()
+        {
+            
+            ElemS<IndexedChar> cur = snake.First.Next;
+            cur = cur.Next;
+            int i = 0;
+
+            while(cur != snake.Last)
+            {
+                if ((snake.First.Value.x == cur.Value.x && snake.First.Value.y == cur.Value.y) ||
+                    snake.First.Value.x == Console.WindowWidth-3 || snake.First.Value.x == 3 || snake.First.Value.y == 3 || snake.First.Value.y == Console.WindowHeight-4)
+                    return true;
+                cur = cur.Next;   
+
+            }
+            return false;
+
         }
     }
 }
