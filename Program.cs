@@ -14,7 +14,7 @@ namespace Snake_CSharp
     
     class Program
     {
-        
+      
         static void Main(string[] args)
         {
             Version version = Assembly.GetEntryAssembly().GetName().Version;
