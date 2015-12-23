@@ -17,29 +17,20 @@ namespace Snake_CSharp
         
         static void Main(string[] args)
         {
-            System.Threading.Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
             Version version = Assembly.GetEntryAssembly().GetName().Version;
             string numVersion = version.ToString();
             ResourceManager rm = new ResourceManager("Snake_CSharp.Lang", typeof(Program).Assembly);
-
-            Console.Title = rm.GetString("consoleTitle") + numVersion;
-            
-
             Menu menu = new Menu();
             SoundThread sound = new SoundThread();
-            int width, height, choice;
+            int choice;
 
-            width = Console.WindowWidth;
-            height = Console.WindowHeight;
-
-         //   Console.SetWindowSize(width* 2, height * 2);
+            Console.Title = rm.GetString("consoleTitle") + numVersion;
 
            choice = menu.startMenu();
 
             if(choice == 2)
             {
                 Game snake = new Game();
-
                 snake.newGame();
             }
 

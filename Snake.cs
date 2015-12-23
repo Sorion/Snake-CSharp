@@ -11,7 +11,7 @@ namespace Snake_CSharp
         public String Char { get; set; }
         public int x { get; set; }
         public int y { get; set; }
-        public int Direction { get; set; }
+
     }
 
     class Snake<S>
