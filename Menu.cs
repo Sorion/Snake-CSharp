@@ -42,7 +42,6 @@ namespace Snake_CSharp
            
         }
 
-
         private int getLongestLenght (String[] str)
         {
             int lenght = 0;
@@ -56,7 +55,6 @@ namespace Snake_CSharp
             return lenght;
                
         }
-
 
         public void displayMenu(int col)
         {
