@@ -9,13 +9,13 @@ namespace Snake_CSharp
 { 
     class EngineThread
     {
-        private static byte UP = 1, DOWN = 2, LEFT = 3, RIGHT = 4;
-        public byte direction;
+        private static byte UP = 1, DOWN = 2, LEFT = 3, RIGHT = 4, EXIT = 5;
+        public byte key;
         private Thread thread;
 
         public EngineThread(byte direction)
         {
-            this.direction = direction;
+            this.key = direction;
         }
 
         public void Start()
@@ -31,13 +31,15 @@ namespace Snake_CSharp
                 ConsoleKeyInfo readKey = Console.ReadKey(true);
 
                 if (readKey.Key == ConsoleKey.UpArrow)
-                    direction = UP;
+                    key = UP;
                 else if (readKey.Key == ConsoleKey.DownArrow)
-                    direction = DOWN;
+                    key = DOWN;
                 else if (readKey.Key == ConsoleKey.LeftArrow)
-                    direction = LEFT;
+                    key = LEFT;
                 else if (readKey.Key == ConsoleKey.RightArrow)
-                    direction = RIGHT;
+                    key = RIGHT;
+                else if (readKey.Key == ConsoleKey.Escape)
+                    key = EXIT;
             }
         }
 
