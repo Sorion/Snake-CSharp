@@ -23,16 +23,22 @@ namespace Snake_CSharp
             Menu menu = new Menu();
             SoundThread sound = new SoundThread();
             int choice;
+            bool run = true;
 
             Console.Title = rm.GetString("consoleTitle") + numVersion;
-
-           choice = menu.startMenu();
-
-            if(choice == 2)
+            while(run)
             {
-                Game snake = new Game();
-                snake.newGame();
+                choice = menu.startMenu();
+
+                if (choice == 1)
+                {
+                    Game snake = new Game();
+                    snake.newGame();
+                }
+                else
+                    run = false;
             }
+
 
         }
     }
