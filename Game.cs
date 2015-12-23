@@ -65,32 +65,15 @@ namespace Snake_CSharp
             Console.CursorVisible = false;
             displayGame(0);
             System.Threading.Thread.Sleep(500);
-            updateGame(engine);
-            Console.Read();
+            engine.updateGame();
         }
 
-        private void updateGame(Engine engine)
-        {
-            //int speed = 500;
-            bool loop = true;
-            ThreadKey keyT = new ThreadKey(4);
-            engine.direction = keyT.direction;
-            keyT.Start();
-            while (loop)
-            {
-                System.Threading.Thread.Sleep(500);
-                engine.direction = keyT.direction;
-                engine.ClearSnake();
-                engine.UpdatePos();
-                engine.DisplaySnake();
 
-            }
-        }
     }
     public class Engine
     {
-        private static byte UP = 1, DOWN = 2, LEFT = 3, RIGHT = 4;
-        public byte direction;
+        private static byte UP = 1, DOWN = 2, LEFT = 3, RIGHT = 4, EXIT = 5;
+        private byte direction;
         private int zoneX, zoneY;
         private Snake<IndexedChar> snake;
 
@@ -103,7 +86,7 @@ namespace Snake_CSharp
         }
 
 
-        protected void initSnake(byte nbElement)
+        private void initSnake(byte nbElement)
         {
             snake = new Snake<IndexedChar>();
 
@@ -117,7 +100,7 @@ namespace Snake_CSharp
             }
         }
 
-        public void DisplaySnake()
+        private void DisplaySnake()
         {
             ElemS<IndexedChar> last = snake.First;
 
@@ -131,7 +114,7 @@ namespace Snake_CSharp
             Console.Write(snake.Last.Value.Char);
         }
 
-        public static void ClearCurrentConsoleLine()
+        private static void ClearCurrentConsoleLine()
         {
             int currentLineCursor = Console.CursorTop;
             Console.SetCursorPosition(4, Console.CursorTop);
@@ -153,8 +136,7 @@ namespace Snake_CSharp
             ClearCurrentConsoleLine();
         }
 
-
-        public void UpdatePos()
+        private void UpdatePos()
         {
             IndexedChar temp = new IndexedChar();
 
@@ -192,6 +174,28 @@ namespace Snake_CSharp
                 temp.x += 1;
                 snake.First.Value = temp;
             }
+        }
+
+        public void updateGame()
+        {
+            bool loop = true;
+            EngineThread keyT = new EngineThread(4);
+            direction = keyT.key;
+            keyT.Start();
+            while (loop)
+            {
+                System.Threading.Thread.Sleep(500);
+                if (keyT.key == EXIT)
+                    loop = false;
+                else
+                {
+                    direction = keyT.key;
+                    ClearSnake();
+                    UpdatePos();
+                    DisplaySnake();
+                }
+            }
+            keyT.Abort();
         }
     }
 }
