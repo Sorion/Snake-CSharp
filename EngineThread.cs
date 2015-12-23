@@ -26,6 +26,7 @@ namespace Snake_CSharp
 
         private void ThreadLoop()
         {
+            System.Threading.Thread.Sleep(1000);
             while(thread.IsAlive)
             {
                 ConsoleKeyInfo readKey = Console.ReadKey(true);
