@@ -61,11 +61,16 @@ namespace Snake_CSharp
         {
             if (food1.isActive == true && food1.isCatch == false)
             {
-                GetRandomPos(food1);
+                
                 Console.SetCursorPosition(food1.x, food1.y);
                 Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.Write("x");
                 Console.ForegroundColor = ConsoleColor.White;
+            }
+            else
+            {
+                food1.isCatch = false;
+                GetRandomPos(food1);
             }
         }
 
