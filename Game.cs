@@ -76,6 +76,7 @@ namespace Snake_CSharp
         private byte direction;
         private int zoneX, zoneY;
         private Snake<IndexedChar> snake;
+        private FoodSystem food;
 
 
         public Engine(ushort speed, int x, int y)
@@ -83,6 +84,7 @@ namespace Snake_CSharp
             zoneX = x;
             zoneY = y;
             initSnake(6);
+            food = new FoodSystem(3, Console.WindowWidth - 3, 3, Console.WindowHeight-3);
         }
 
 
@@ -182,6 +184,7 @@ namespace Snake_CSharp
             EngineThread keyT = new EngineThread(3);
             direction = keyT.key;
             keyT.Start();
+            food.StartFood();
             while (loop)
             {
                 System.Threading.Thread.Sleep(500);
@@ -193,11 +196,14 @@ namespace Snake_CSharp
 
                     ClearSnake();
                     UpdatePos();
+                    
                     if (CheckCollision() == true)
                         loop = false;
                     DisplaySnake();
+                    CheckFood();
                 }
             }
+            food.AbortFood();
             keyT.Abort();
         }
 
@@ -206,7 +212,6 @@ namespace Snake_CSharp
             
             ElemS<IndexedChar> cur = snake.First.Next;
             cur = cur.Next;
-            int i = 0;
 
             while(cur != snake.Last)
             {
@@ -215,6 +220,18 @@ namespace Snake_CSharp
                     return true;
                 cur = cur.Next;   
 
+            }
+            return false;
+
+        }
+
+        private bool CheckFood()
+        {
+
+            if (snake.First.Value.x == food.food1.x && snake.First.Value.y == food.food1.y)
+            {
+                food.food1.isCatch = true;
+                return true;
             }
             return false;
 
