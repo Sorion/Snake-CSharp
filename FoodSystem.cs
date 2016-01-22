@@ -34,14 +34,14 @@ namespace Snake_CSharp
             this.YMax = Ymax;
             food1 = new food();
             food1.isActive = true;
-            food1.isCatch = false;
+            food1.isCatch = true;
             nbRandom = new Random();
         }
 
-        private void GetRandomPos(food food)
+        private void GetRandomPos()
         {
-            food.x = nbRandom.Next(XMin, XMax);
-            food.y = nbRandom.Next(YMin, YMax);
+            food1.x = nbRandom.Next(XMin, XMax);
+            food1.y = nbRandom.Next(YMin, YMax);
         }
         public void StartFood()
         {
@@ -53,24 +53,33 @@ namespace Snake_CSharp
         {
             while(foodThread.IsAlive)
             {
+                Thread.Sleep(400);
                 DisplayFood();
             }
         }
 
         private void DisplayFood()
         {
-            if (food1.isActive == true && food1.isCatch == false)
+            bool display = false;
+
+            if (display == false)
             {
-                
-                Console.SetCursorPosition(food1.x, food1.y);
-                Console.ForegroundColor = ConsoleColor.DarkRed;
-                Console.Write("x");
-                Console.ForegroundColor = ConsoleColor.White;
-            }
-            else
-            {
-                food1.isCatch = false;
-                GetRandomPos(food1);
+
+                if (food1.isActive == true && food1.isCatch == false)
+                {
+
+                    Console.SetCursorPosition(food1.x, food1.y);
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                    Console.Write("x");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    display = true;
+                }
+                else
+                {
+                    food1.isCatch = false;
+                    GetRandomPos();
+                    display = false;
+                }
             }
         }
 
