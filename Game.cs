@@ -4,16 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
+
 namespace Snake_CSharp
 {
     
-    class Game
+    public class Game
     {
         private int cursorXpos,
           cursorYpos,
           endPos,
           zoneX,
-          zoneY;
+          zoneY,
+          score = 0;
 
 
         public Game()
@@ -24,6 +27,21 @@ namespace Snake_CSharp
             zoneY = Console.WindowHeight;
             endPos = 0;
 
+        }
+
+        public Game getInstance()
+        {
+            return this;
+        }
+
+        public void updateScore(int scoreToAdd)
+        {
+            score += scoreToAdd;
+            int currentLineCursor = Console.CursorTop;
+            Console.SetCursorPosition(1, Console.CursorTop);
+            Console.Write(new string(' ', Console.WindowWidth - 8));
+            Console.SetCursorPosition(1, 1);
+            Console.WriteLine("SCORE : " + score);
         }
 
         private void displayGame(int score)
@@ -61,9 +79,9 @@ namespace Snake_CSharp
 
         public void newGame ()
         {
-            Engine engine = new Engine(500, zoneX, zoneY);
+            Engine engine = new Engine(800, zoneX, zoneY, this.getInstance());
             Console.CursorVisible = false;
-            displayGame(0);
+            displayGame(score);
             System.Threading.Thread.Sleep(500);
             engine.updateGame();
         }
@@ -74,17 +92,19 @@ namespace Snake_CSharp
     {
         private static byte UP = 1, DOWN = 2, LEFT = 3, RIGHT = 4, EXIT = 5;
         private byte direction;
-        private int zoneX, zoneY;
+        private int zoneX, zoneY, score = 0;
         private Snake<IndexedChar> snake;
         private FoodSystem food;
+        private Game gameInstance;
 
 
-        public Engine(ushort speed, int x, int y)
+        public Engine(ushort speed, int x, int y, Game game)
         {
             zoneX = x;
             zoneY = y;
-            initSnake(6);
+            initSnake(4);
             food = new FoodSystem(3, Console.WindowWidth - 3, 3, Console.WindowHeight-3);
+            this.gameInstance = game;
         }
 
 
@@ -200,7 +220,12 @@ namespace Snake_CSharp
                     if (CheckCollision() == true)
                         loop = false;
                     DisplaySnake();
-                    CheckFood();
+                    if(CheckFood())
+                    {
+                        this.snake.Add(new IndexedChar());
+                        this.gameInstance.updateScore(10);
+                        
+                    }
                 }
             }
             food.AbortFood();

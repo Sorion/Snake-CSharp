@@ -40,8 +40,8 @@ namespace Snake_CSharp
 
         private void GetRandomPos()
         {
-            food1.x = nbRandom.Next(XMin, XMax);
-            food1.y = nbRandom.Next(YMin, YMax);
+            food1.x = nbRandom.Next(XMin, XMax-1);
+            food1.y = nbRandom.Next(YMin, YMax-1);
         }
         public void StartFood()
         {

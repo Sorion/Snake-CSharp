@@ -1,0 +1,14 @@
+C:\Users\maxim\Documents\C#\Snake-CSharp\bin\Debug\ConsoleApplication.exe
+C:\Users\maxim\Documents\C#\Snake-CSharp\bin\Debug\ConsoleApplication.pdb
+C:\Users\maxim\Documents\C#\Snake-CSharp\obj\x86\Debug\Snake.csprojResolveAssemblyReference.cache
+C:\Users\maxim\Documents\C#\Snake-CSharp\obj\x86\Debug\ConsoleApplication.exe
+C:\Users\maxim\Documents\C#\Snake-CSharp\obj\x86\Debug\ConsoleApplication.pdb
+C:\Users\maxim\Documents\C#\Snake-CSharp\obj\x86\Debug\Snake.csproj.GenerateResource.Cache
+C:\Users\maxim\Documents\C#\Snake-CSharp\obj\x86\Debug\Snake.Properties.Resources.resources
+C:\Users\maxim\Documents\Projets\C#\Snake-CSharp\obj\x86\Debug\ConsoleApplication.exe
+C:\Users\maxim\Documents\Projets\C#\Snake-CSharp\obj\x86\Debug\ConsoleApplication.pdb
+C:\Users\maxim\Documents\Projets\C#\Snake-CSharp\bin\Debug\ConsoleApplication.exe
+C:\Users\maxim\Documents\Projets\C#\Snake-CSharp\bin\Debug\ConsoleApplication.pdb
+C:\Users\maxim\Documents\Projets\C#\Snake-CSharp\obj\x86\Debug\Snake.csprojResolveAssemblyReference.cache
+C:\Users\maxim\Documents\Projets\C#\Snake-CSharp\obj\x86\Debug\Snake.Properties.Resources.resources
+C:\Users\maxim\Documents\Projets\C#\Snake-CSharp\obj\x86\Debug\Snake.csproj.GenerateResource.Cache

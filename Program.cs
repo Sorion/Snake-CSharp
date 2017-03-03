@@ -21,14 +21,20 @@ namespace Snake_CSharp
             string numVersion = version.ToString();
             System.Globalization.CultureInfo ci = new System.Globalization.CultureInfo("en-US");
             System.Threading.Thread.CurrentThread.CurrentCulture = ci;
-            ResourceManager rm = new ResourceManager("Snake_CSharp.Lang", typeof(Program).Assembly);
+            ResourceManager rm = new ResourceManager("Resources", typeof(Program).Assembly);
             Menu menu = new Menu();
             SoundThread sound = new SoundThread();
             int choice;
             bool run = true;
 
-
-            Console.Title = rm.GetString("consoleTitle") + numVersion;
+            try
+            {
+                Console.Title = rm.GetString("title") + numVersion;
+            } catch (Exception e)
+            {
+                System.Console.WriteLine(e.ToString());
+                Console.Title = "Snake" + numVersion;
+            }
             while(run)
             {
                 choice = menu.startMenu();

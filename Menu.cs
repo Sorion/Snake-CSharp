@@ -18,8 +18,8 @@ namespace Snake_CSharp
 
         public Menu()
         {
-            logo = getLogo("conf/snake.logo");
-            name = getLogo("conf/Name.logo");
+            logo = getLogo("./conf/snake.logo");
+            name = getLogo("./conf/Name.logo");
             logoLenght = getLongestLenght(logo);
             nameLenght = getLongestLenght(name);
         }
@@ -60,7 +60,8 @@ namespace Snake_CSharp
         {
             Console.Clear();
             Console.SetCursorPosition(0, 0);
-            TextCenter(rm.GetString("menu"));
+            TextCenter("Menu");
+            //TextCenter(rm.GetString("menu"));
             Console.SetCursorPosition(0, 4);
 
             foreach(String line in logo)
@@ -84,15 +85,19 @@ namespace Snake_CSharp
             {
                 Console.BackgroundColor = ConsoleColor.White;
                 Console.ForegroundColor = ConsoleColor.Black;
-                TextCenter(rm.GetString("newGame"));
-                TextCenter(rm.GetString("exit"));
+                TextCenter("New Game");
+                TextCenter("Exit");
+                //TextCenter(rm.GetString("newGame"));
+                //TextCenter(rm.GetString("exit"));
             }
             else
             {
-                TextCenter(rm.GetString("newGame"));
+                TextCenter("New Game");
+                //TextCenter(rm.GetString("newGame"));
                 Console.BackgroundColor = ConsoleColor.White;
                 Console.ForegroundColor = ConsoleColor.Black;
-                TextCenter(rm.GetString("exit"));
+                TextCenter("Exit");
+                //TextCenter(rm.GetString("exit"));
 
             }            
         }
